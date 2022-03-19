@@ -22,6 +22,15 @@ class Steam
     }
 
 
+    public function getPlayerSummaries($id){
+        $response = $this->client->request('GET',
+            'https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key='. self::$key .'&steamids='.$id
+        );
+        return json_decode($response->getContent(), true)['response'];
+
+    }
+
+
     /**
      * @throws TransportExceptionInterface
      * @throws ServerExceptionInterface
@@ -29,16 +38,15 @@ class Steam
      */
     public function checkSteamId($id): bool
     {
-        $response = $this->client->request('GET',
-            'https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key='. self::$key .'&steamids='.$id
-        );
-        $response = json_decode($response->getContent(), true);
-
-        if ($response['response']['players'] == null )
+        if ($this->getPlayerSummaries($id)['players'] == null )
             return false;
         else{
             return true;
         }
+    }
+
+    public function getPseudoWithId($id){
+        return $this->getPlayerSummaries($id)['players']['0']['personaname'];
     }
 
 }

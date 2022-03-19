@@ -2,18 +2,26 @@
 
 namespace App\Controller;
 
+use App\libraries\Steam;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
     #[Route('/login', name: 'app_login')]
-    public function index(AuthenticationUtils $authenticationUtils, Request $request): Response
+    public function index(AuthenticationUtils $authenticationUtils, Request $request, Steam $steam, EntityManagerInterface $entityManager): Response
     {
         if ($this->getUser()) {
+            $user = $this->getUser();
+            if ($user->getSteamId() != null){
+                $user->setPseudo($steam->getPseudoWithId($user->getSteamId()));
+                $entityManager->flush();
+            }
             return $this->redirectToRoute('app_home');
         }
 

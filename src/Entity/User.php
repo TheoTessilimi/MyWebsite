@@ -37,6 +37,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $steamID;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $Pseudo;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -146,5 +149,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getFullName(): string
     {
         return ucfirst($this->getFirstname()) . ' ' . strtoupper($this->getLastname());
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->Pseudo;
+    }
+
+    public function setPseudo(string $Pseudo): self
+    {
+        $this->Pseudo = $Pseudo;
+
+        return $this;
     }
 }
