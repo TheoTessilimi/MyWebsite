@@ -2,8 +2,15 @@ main > .container {
     padding: 80px 15px 0;
 }
 .pseudo{
-    display: block;
     color: #6c6c6c;
     font-weight: bold;
     font-size: 1.5em;
+    text-align: center;
+}
+.logout{
+    color: #6c6c6c;
+    font-weight: bold;
+    font-size: 1em;
+    text-align: center;
+    margin-top: 5px;
 }

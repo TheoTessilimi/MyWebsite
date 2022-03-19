@@ -54,14 +54,15 @@
                             <a class="nav-link active" href="{{ path('app_account') }}">Mon compte</a>
                         </li>
                             <li class="nav-item">
-                                <a class="nav-link {%  if not app.user.steamID %}disabled{% else %}active {% endif %}" href="{%  if not app.user.steamID %}disabled{% else %}active {% endif %}">Mes stats</a>
+                                <a class="nav-link {%  if not app.user.steamID %}{% else %}active {% endif %}" href="{%  if not app.user.steamID %}{{ path('app_account_steamid') }}{% else %}{{ path('app_users')}} {% endif %}">Mes stats</a>
                             </li>
                         {% endif %}
                 </ul>
                 {% if not app.user %}
-                    <a class="nav-link" href="{{ path('app_login') }}">Connexion</a> --- <a class="nav-link" href="{{ path('app_register') }}">Connexion</a>
+                    <a class="nav-link" href="{{ path('app_login') }}">Connexion</a> --- <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
+                {% else %}
+                    <span class="pseudo">{{ app.user.pseudo }}</span><a class="nav-link logout" href="{{ path('app_logout') }}">Déconnexion</a>
                 {% endif %}
-                {% if app.user %}<span class="pseudo">{{ app.user.pseudo }}<span>{% endif %}
             </div>
         </div>
     </nav>

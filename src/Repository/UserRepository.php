@@ -48,6 +48,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
     }
 
+    public function findUsersWithSteamId()
+    {
+        $qb = $this->createQueryBuilder('u');
+        $qb->where('u.steamID != :identifier')
+            ->setParameter('identifier', '');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */

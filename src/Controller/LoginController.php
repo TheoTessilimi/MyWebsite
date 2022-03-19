@@ -17,11 +17,6 @@ class LoginController extends AbstractController
     public function index(AuthenticationUtils $authenticationUtils, Request $request, Steam $steam, EntityManagerInterface $entityManager): Response
     {
         if ($this->getUser()) {
-            $user = $this->getUser();
-            if ($user->getSteamId() != null){
-                $user->setPseudo($steam->getPseudoWithId($user->getSteamId()));
-                $entityManager->flush();
-            }
             return $this->redirectToRoute('app_home');
         }
 

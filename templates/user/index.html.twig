@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block content %}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Pseudo</th>
+            <th scope="col">Dernière connexion</th>
+            <th scope="col">Date création du compte</th>
+        </tr>
+        </thead>
+        <tbody>
+
+    {% for user in users %}
+        <tr>
+            <th scope="row"><img src="{{ user.steam.avatar }}"></th>
+            <td>{{ user.steam.personaname }}</td>
+            <td>{{ user.steam.lastlogoff | date("d/m/Y") }}</td>
+            <td>{{ user.steam.timecreated | date("d/m/Y") }}</td>
+        </tr>
+    {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}

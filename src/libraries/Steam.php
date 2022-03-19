@@ -49,4 +49,9 @@ class Steam
         return $this->getPlayerSummaries($id)['players']['0']['personaname'];
     }
 
+    public function getPlayerInfoWithId($id){
+        return $this->getPlayerSummaries($id)['players']['0'];
+
+    }
+
 }
