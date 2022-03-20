@@ -14,7 +14,7 @@ class UserController extends AbstractController
     #[Route('/users', name: 'app_users')]
     public function index(EntityManagerInterface $entityManager, Steam $steam): Response
     {
-        $users = $entityManager->getRepository(User::class)->findUsersWithSteamId();
+        $users = $entityManager->getRepository(User::class)->findUsersWithSteamIdNotNull();
         $response = [];
         $i = 0;
         foreach ($users as $user){
@@ -25,6 +25,17 @@ class UserController extends AbstractController
         //dd($response);
 
         return $this->render('user/index.html.twig', [
+            'users' => $response,
+        ]);
+    }
+
+    #[Route('/user/{steamid}', name: 'app_user_details')]
+    public function user(EntityManagerInterface $entityManager, Steam $steam, $steamid): Response
+    {
+        $response = $steam->GetUserStatsForGame($steamid, '730');
+
+
+        return $this->render('user/user.html.twig', [
             'users' => $response,
         ]);
     }

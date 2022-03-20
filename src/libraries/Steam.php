@@ -30,6 +30,19 @@ class Steam
 
     }
 
+    public function GetUserStatsForGame($id, $appid){
+        $response = $this->client->request('GET',
+            'https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v2?key='. self::$key .'&steamid='. $id .'&appid='.$appid
+        );
+        if ($response->getStatusCode() == 200) {
+            return json_decode($response->getContent(), true)['playerstats']['stats'];
+        }
+        else{
+            return false;
+        }
+
+    }
+
 
     /**
      * @throws TransportExceptionInterface

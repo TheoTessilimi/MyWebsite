@@ -10,6 +10,7 @@
             <th scope="col">Pseudo</th>
             <th scope="col">Dernière connexion</th>
             <th scope="col">Date création du compte</th>
+            <th scope="col">Voir les stats du joueur</th>
         </tr>
         </thead>
         <tbody>
@@ -20,6 +21,8 @@
             <td>{{ user.steam.personaname }}</td>
             <td>{{ user.steam.lastlogoff | date("d/m/Y") }}</td>
             <td>{{ user.steam.timecreated | date("d/m/Y") }}</td>
+            <td><a href="{{ path('app_user_details', { 'steamid' : user.steam.steamid}) }}" class="btn btn-dark pt-1">Cliquer ici !</a></td>
+
         </tr>
     {% endfor %}
 

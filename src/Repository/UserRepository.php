@@ -48,11 +48,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         }
     }
 
-    public function findUsersWithSteamId()
+    public function findUsersWithSteamIdNotNull()
     {
         $qb = $this->createQueryBuilder('u');
         $qb->where('u.steamID != :identifier')
             ->setParameter('identifier', '');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
+
+    public function findUsersWithSteamId($id)
+    {
+        $qb = $this->createQueryBuilder('u');
+        $qb->where('u.steamID = :identifier')
+            ->setParameter('identifier', $id);
 
         return $qb->getQuery()
             ->getResult();
