@@ -10,7 +10,7 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class Steam
+class Steam //TODO faire des test pour les différentes requetes
 {
     private STATIC string $key = '278CFAA93F6CA30CC0B359A330CD9E79';
     private HttpClientInterface $client;

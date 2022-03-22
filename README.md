@@ -30,6 +30,8 @@ Puis exécuter la création de la base de donnée avec la commande : ``symfony c
 
 - 4 Exécuter la migration en base de donnée :                                        ``symfony console doctrine:migration:migrate``
 
+- 5 Modifier la clé API dans la class Steam()
+
 - 5 Vous pouvez maintenant accéder à votre portfolio en vous connectant au serveur : ``symfony server:start``
 
 

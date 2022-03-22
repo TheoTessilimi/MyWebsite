@@ -13,6 +13,9 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(Steam $steam, EntityManagerInterface $entityManager): Response
     {
+        //TODO stocker pseudo dans une session
+        //TODO faire de même pour l'image de profil ?
+        //TODO Optimisation des requètes
         if ($this->getUser()) {
             $user = $this->getUser();
             if ($user->getSteamId() != null) {
