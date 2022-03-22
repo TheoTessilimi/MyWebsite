@@ -69,19 +69,12 @@ class Steam
         }
     }
 
-    public function getPseudoWithId($id){
-        return $this->getPlayerSummaries($id)['players']['0']['personaname'];
-    }
-    public function getAvatarWithId($id){
-        return $this->getPlayerSummaries($id)['players']['0']['avatarmedium'];
-    }
-
     public function getPlayerInfoWithId($id){
         return $this->getPlayerSummaries($id)['players']['0'];
 
     }
 
-    public function getPaginatedFriendsList(int $page, int $limit, array $friendsList)
+    public function getPaginatedFriendsList(int $page, int $limit, array $friendsList): array
     {
         $firstResult = ($page * $limit) - $limit;
         $maxResult = (count($friendsList));
@@ -96,7 +89,20 @@ class Steam
 
         return $response;
 
+    }
 
+    public function getInfoWithId($steamid, array $infoToGet):mixed
+    {
+        $response = [];
+        $infos = $this->getPlayerInfoWithId($steamid);
+        if (count($infoToGet) == 1){
+            $response = $infos[implode($infoToGet)];
+        }else {
+            foreach ($infoToGet as $info) {
+                $response[$info] = $infos[$info];
+            }
+        }
+        return $response;
 
     }
 

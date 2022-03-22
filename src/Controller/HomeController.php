@@ -16,7 +16,7 @@ class HomeController extends AbstractController
         if ($this->getUser()) {
             $user = $this->getUser();
             if ($user->getSteamId() != null) {
-                $user->setPseudo($steam->getPseudoWithId($user->getSteamId()));
+                $user->setPseudo($steam->getInfoWithId($user->getSteamId(), ['personaname']));
                 $entityManager->flush();
             }
         }

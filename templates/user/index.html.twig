@@ -3,7 +3,7 @@
 {% block title %}Hello UserController!{% endblock %}
 
 {% block content %}
-    <table class="table table-hover">
+    <table class="table table-hover mt-3">
         <thead>
         <tr>
             <th scope="col"></th>
@@ -20,7 +20,7 @@
             <td class="text-center">{{ user.steam.personaname }}</td>
             <td class="text-center">{{ user.steam.lastlogoff | date("d/m/Y") }}</td>
             <td class="text-center">{{ user.friendSince | date("d/m/Y") }}</td>
-            <td class="text-center"><a href="{{ path('app_user_details', { 'steamid' : user.steam.steamid}) }}" class="btn btn-dark pt-1">Cliquer ici !</a></td>
+            <td class="text-center"><a href="{{ path('app_user_details', { 'steamid' : user.steam.steamid}) }}" class="btn btn-secondary pt-1">Cliquer ici !</a></td>
 
         </tr>
     {% endfor %}
@@ -28,11 +28,10 @@
         </tbody>
     </table>
 
-
     <nav aria-label="..." class="pt-5">
         <ul class="pagination justify-content-center">
             <li class="page-item {% if actualPage == 1 %}disabled{% endif %}">
-                <a class="page-link" href="?page={{ actualPage - 1  }}">Suivant</a>
+                <a class="page-link" href="?page={{ actualPage - 1  }}">précédant</a>
             </li>
             {% for item in 1..(nbFriends/itemLimits)|round(0, 'ceil') %}
                 {% if item == actualPage %}
@@ -45,7 +44,7 @@
             {% endfor %}
 
             <li class="page-item {% if actualPage == (nbFriends/itemLimits)|round(0, 'ceil') %}disabled{% endif %}">
-                <a class="page-link" href="?page={{ actualPage + 1  }}">Précédent</a>
+                <a class="page-link" href="?page={{ actualPage + 1  }}">suivant</a>
             </li>
         </ul>
     </nav>
