@@ -8,8 +8,8 @@
         <thead>
         <tr>
             <th scope="col"></th>
-            <th scope="col" class="text-center">Pseudo</th>
-            <th scope="col" class="text-center">Dernière connexion</th>
+            <th scope="col" class="text-center">Pseudo :</th>
+            <th scope="col" class="text-center">Dernière connexion :</th>
             <th scope="col" class="text-center">Ami depuis :</th>
             <th scope="col" class="text-center">Voir les stats du joueur</th>
         </tr>
@@ -17,7 +17,7 @@
         <tbody>
     {% for user in users %}
         <tr>
-            <th scope="row"class="text-center"><img src="{{ user.steam.avatar }}"></th>
+            <th scope="row" class="text-center"><img src="{{ user.steam.avatar }}"></th>
             <td class="text-center">{{ user.steam.personaname }}</td>
             <td class="text-center">{{ user.steam.lastlogoff | date("d/m/Y") }}</td>
             <td class="text-center">{{ user.friendSince | date("d/m/Y") }}</td>

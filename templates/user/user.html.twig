@@ -74,6 +74,64 @@
         </table>
         <h3 class="text-center">Dernier Match</h3>
         <hr>
+        <table class="table text-center">
+            <tbody>
+            <tr>
+                <td>
+                    Nombre de kill <br>
+                    <span>{{ users.last_match_kills }}</span>
+                </td>
+                <td>
+                    Nombre de mort <br>
+                    <span>{{ users.last_match_deaths }}</span>
+                </td>
+                <td>
+                    Ratio K/D <br>
+                    <span>{{ (users.last_match_kills / users.last_match_deaths) |number_format(2) }}</span>
+                </td>
+                <td>
+                    Nombre de mvp <br>
+                    <span>{{ users.last_match_mvps }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Victoire côté CT<br>
+                    <span>{{ users.last_match_ct_wins }}</span>
+                </td>
+                <td>
+                    Victoire côte T<br>
+                    <span>{{ users.last_match_t_wins }}</span>
+                </td>
+                <td>
+                    Nombre de rounds<br>
+                    <span>{{ users.last_match_rounds }}</span>
+                </td>
+                <td>
+                    Score<br>
+                    <span>{{ users.total_contribution_score }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Dégâts infligé<br>
+                    <span>{{ users.last_match_damage }}</span>
+                </td>
+                <td>
+                    Argent dépensé<br>
+                    <span>{{ users.last_match_money_spent }} </span>
+                </td>
+                <td>
+                    Nombre de bombes planté <br>
+                    <span></span>
+                </td>
+                <td>
+                    Nombre de bombes désamorcé <br>
+                    <span></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 {% endif %}
 {% endblock %}
 
