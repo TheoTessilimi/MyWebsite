@@ -35,14 +35,15 @@ class AccountController extends AbstractController
     {
         $notification = null;
 
-
         $form = $this->createForm(SteamIdType::class, $this->getUser());
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $steamID = $form->get('steamID')->getData();
             if ($steam->checkSteamId($steamID)){
+
                 $user = $form->getData();
+                $user->setRoles(array('ROLE_USER_WITH_STEAMID'));
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
                 $notification = 'Votre id steam a bien été mis a jour !';
