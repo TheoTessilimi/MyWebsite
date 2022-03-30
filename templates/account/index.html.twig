@@ -1,4 +1,3 @@
-{# TODO Faire le style de la page #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Mon compte{% endblock %}
@@ -6,6 +5,8 @@
 {% block content %}
     <h1>Bienvenue sur votre compte {{ app.user.getFullName }}</h1>
     <hr>
-    - <a href="">Modifier mes Informations personnelles</a><br>
-    - Appuyer <a href="">ici</a> pour ajouter votre steam id
+    <div class="row">
+        <a class="col d-grid btn-account"> <button class="btn btn-secondary btn-account" type="button">Modifier vos information personnelles</button></a>
+        <a href="{{ path('app_account_steamid') }}" class="col d-grid btn-account" ><button class="btn btn-secondary btn-account" type="button" href="{{ path('app_account_steamid') }}">Modifier votre steam id</button></a>
+    </div>
 {% endblock %}
