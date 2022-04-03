@@ -41,7 +41,6 @@ class AccountController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()){
             $steamID = $form->get('steamID')->getData();
             if ($steam->checkSteamId($steamID)){
-
                 $user = $form->getData();
                 $user->setRoles(array('ROLE_USER_WITH_STEAMID'));
                 $this->entityManager->persist($user);
