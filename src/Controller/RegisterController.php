@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegisterType;
 use Doctrine\ORM\EntityManagerInterface;
+use Proxies\__CG__\App\Entity\User as EntityUser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,22 +30,28 @@ class RegisterController extends AbstractController
         if ($this->getUser()) {
             return $this->redirectToRoute('app_home');
         }
-
+        
         $user = new User();
+        $error = "";
         $form = $this->createForm(RegisterType::class, $user);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
-            $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
-            $this->entityManager->persist($user);
-            $this->entityManager->flush();
-
+            if ($this->entityManager->getRepository(User::class)->verifyIfEmailIsUnique($user->getEmail())) {
+                $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
+                $this->entityManager->persist($user);
+                $this->entityManager->flush();
+                return $this->redirectToRoute('app_login');
+            } else {
+                $error = 'L\'adresse mail '. $user->getEmail() . ' existe déjà !';
+            }
         }
-
 
         return $this->render('register/index.html.twig', [
             'form' => $form->createView(),
+            'error' => $error
         ]);
     }
+
 }

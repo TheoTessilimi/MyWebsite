@@ -68,6 +68,18 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult();
     }
 
+    public function verifyIfEmailIsUnique($email){
+        $qb =$this->createQueryBuilder('u');
+        $qb->where('u.email = :identifier')
+            ->setParameter('identifier', $email);
+        if ($qb->getQuery()->getResult() == null){
+            $response = true;
+        }else{
+            $response = false;
+        }
+        return $response;
+    }
+
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */

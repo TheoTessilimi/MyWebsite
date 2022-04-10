@@ -3,6 +3,11 @@
 {% block title %}Inscription{% endblock %}
 
 {% block content %}
+    <div class="block-small">
+        <form method="post">
+            {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% endif %}
     <br>
     <h2 class="text-center">Merci de vous inscrire pour continuer.</h2>
     <hr>
