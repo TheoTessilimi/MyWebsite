@@ -9,7 +9,7 @@
     {% else %}
         <h1 class="text-center">Voici les stats pour sur csgo pour <b>{{ pseudo }}.<img src="{{ avatar }}" alt="avatar"></b></h1>
         <br>
-        <h3 class="text-center">Heures de jeu total : {{ users.total_time_played }} </h3>
+        <h3 class="text-center">Heures de jeu total : {{ (users.total_time_played / 3600) | number_format(0) }} H </h3>
         <hr>
         <h3 class="text-center">Score Global</h3>
         <hr>
@@ -114,20 +114,18 @@
             </tr>
             <tr>
                 <td>
-                    Dégâts infligé<br>
-                    <span>{{ users.last_match_damage }}</span>
+                    /
                 </td>
                 <td>
                     Argent dépensé<br>
                     <span>{{ users.last_match_money_spent }} </span>
                 </td>
                 <td>
-                    Nombre de bombes planté <br>
-                    <span></span>
+                    Dégâts infligé<br>
+                    <span>{{ users.last_match_damage }}</span>
                 </td>
                 <td>
-                    Nombre de bombes désamorcé <br>
-                    <span></span>
+                    /
                 </td>
             </tr>
             </tbody>
