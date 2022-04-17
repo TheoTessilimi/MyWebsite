@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegisterType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Proxies\__CG__\App\Entity\User as EntityUser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,13 +33,19 @@ class RegisterController extends AbstractController
         }
         
         $user = new User();
+
+        /**
+         * @var UserRepository
+         */
+        $userEntity = $this->entityManager->getRepository(User::class);
+        
         $error = "";
         $form = $this->createForm(RegisterType::class, $user);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
-            if ($this->entityManager->getRepository(User::class)->verifyIfEmailIsUnique($user->getEmail())) {
+            if ($userEntity->verifyIfEmailIsUnique($user->getEmail())) {
                 $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
