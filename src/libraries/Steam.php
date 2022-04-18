@@ -2,9 +2,8 @@
 
 namespace App\libraries;
 
-
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Config\FrameworkConfig;
-use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
@@ -12,22 +11,23 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class Steam //TODO faire des test pour les différentes requetes
 {
-    private STATIC string $key = '278CFAA93F6CA30CC0B359A330CD9E79';
+    private string $key;
     private HttpClientInterface $client;
     private FrameworkConfig $framework;
 
     /**
      * @param HttpClientInterface $client
      */
-    public function __construct(HttpClientInterface $client)
+    public function __construct(HttpClientInterface $client, ParameterBagInterface $parameterBagInterface)
     {
         $this->client = $client;
+        $this->key = $parameterBagInterface->get('KEY_STEAM');
     }
 
 
     public function getPlayerSummaries($id){
         $response = $this->client->request('GET',
-            'https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key='. self::$key .'&steamids='.$id
+            'https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key='. $this->key .'&steamids='.$id
         );
         return json_decode($response->getContent(), true)['response'];
 
@@ -35,7 +35,7 @@ class Steam //TODO faire des test pour les différentes requetes
 
     public function getPlayerFriendList($id){
             $response = $this->client->request('GET',
-                'https://api.steampowered.com/ISteamUser/GetFriendList/v1?key=' . self::$key . '&steamid=' . $id,
+                'https://api.steampowered.com/ISteamUser/GetFriendList/v1?key=' . $this->key . '&steamid=' . $id,
             );
         return json_decode($response->getContent(), true)['friendslist']['friends'];
 
@@ -43,7 +43,7 @@ class Steam //TODO faire des test pour les différentes requetes
 
     public function GetUserStatsForGame($id, $appid){
         $response = $this->client->request('GET',
-            'https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v2?key='. self::$key .'&steamid='. $id .'&appid='.$appid
+            'https://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v2?key='. $this->key .'&steamid='. $id .'&appid='.$appid
         );
         if ($response->getStatusCode() == 200) {
             return json_decode($response->getContent(), true)['playerstats']['stats'];
