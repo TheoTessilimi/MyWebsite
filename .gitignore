@@ -31,4 +31,10 @@ yarn-error.log
 !.elasticbeanstalk/*.global.yml
 /data/
 /db_data/
+
+#VScode
 /.vscode/
+
+#.env.local
+.env.local
+.env.local
