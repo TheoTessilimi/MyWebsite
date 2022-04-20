@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\libraries\Steam;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +18,9 @@ class HomeController extends AbstractController
         //TODO faire de même pour l'image de profil ?
         //TODO Optimisation des requètes
         if ($this->getUser()) {
+            /**
+             * @var User $user
+             */
             $user = $this->getUser();
             if ($user->getSteamId() != null) {
                 $user->setPseudo($steam->getInfoWithId($user->getSteamId(), ['personaname']));
