@@ -37,6 +37,7 @@ class RegisterType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Votre email :',
+                'invalid_message' => 'Veuillez à bien remplir ce champ',
                 'attr' => [
                     'placeholder' => 'Jean.Dupont@gmail.com'
                 ]
