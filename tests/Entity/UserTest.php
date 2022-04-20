@@ -57,7 +57,7 @@ class UserTest extends KernelTestCase
     /**
      * @return void
      */
-    public function testIfgetFullNameReturnFullName(){
+    public function testIfGetFullNameReturnFullName(){
         $this->assertEquals('Théo TESSILIMI', $this->getEntity()->getFullName());
 
     }
