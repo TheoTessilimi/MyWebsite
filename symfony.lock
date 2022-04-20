@@ -690,5 +690,8 @@
     },
     "webmozart/assert": {
         "version": "1.10.0"
+    },
+    "xpaw/steam-openid": {
+        "version": "v2.0.0"
     }
 }
