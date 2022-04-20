@@ -1,4 +1,3 @@
-test
 # Mon projet de dev symfony
 
 ## Description
