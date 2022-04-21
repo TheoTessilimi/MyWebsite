@@ -15,11 +15,13 @@ class SteamIdType extends AbstractType
     {
         $builder
             ->add('steamID', TextType::class,[
-                'label' => 'Votre Steam ID :'
+                'label' => 'Votre Steam ID :',
+                'disabled' => true
             ])
-            ->add('submit', SubmitType::class,[
+/*            ->add('submit', SubmitType::class,[
                 'label' => 'Mettre à jour'
             ])
+        */
         ;
     }
 
