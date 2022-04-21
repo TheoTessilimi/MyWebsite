@@ -2,6 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use xPaw\Steam\SteamOpenID;
 use App\Form\SteamIdType;
 use App\libraries\Steam;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,29 +35,35 @@ class AccountController extends AbstractController
     }
 
 
+    /**
+     * @throws RedirectionExceptionInterface
+     * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     */
     #[Route('/account/steamid', name: 'app_account_steamid')]
     public function steamid(Request $request, Steam $steam): Response
     {
-        $notification = null;
-
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
         $form = $this->createForm(SteamIdType::class, $this->getUser());
+        $notification = $request->query->get('info', null);
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
-            $steamID = $form->get('steamID')->getData();
-            if ($steam->checkSteamId($steamID)){
-                $user = $form->getData();
+        if (isset($_GET[ 'openid_claimed_id' ])) {
+            $CommunityID = SteamOpenID::ValidateLogin('https://127.0.0.1:8000/account/steamid');
+
+            if ($CommunityID === null) {
+                return $this->redirectToRoute('app_account_steamid', ['info' => 'Un problème a été détecté lors de l\'ajout de votre SteamID']);
+            }
+            elseif($steam->checkSteamId($CommunityID)) {
+                $user->setSteamID($CommunityID);
                 $user->setRoles(array('ROLE_USER_WITH_STEAMID'));
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
-                $notification = 'Votre id steam a bien été mis a jour !';
-            }else{
-                $notification = 'Id steam non valide !';
+                return $this->redirectToRoute('app_account_steamid', ['info' => 'Votre Steam ID a bien été ajouté']);
             }
-
         }
-
-
 
         return $this->render('account/steamid.html.twig',[
             'form' => $form->createView(),
