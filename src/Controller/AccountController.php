@@ -49,9 +49,10 @@ class AccountController extends AbstractController
         $user = $this->getUser();
         $form = $this->createForm(SteamIdType::class, $this->getUser());
         $notification = $request->query->get('info', null);
-
+        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $actual_link = strtok($actual_link, '?');
         if (isset($_GET[ 'openid_claimed_id' ])) {
-            $CommunityID = SteamOpenID::ValidateLogin('https://127.0.0.1:8000/account/steamid');
+            $CommunityID = SteamOpenID::ValidateLogin($actual_link);
 
             if ($CommunityID === null) {
                 return $this->redirectToRoute('app_account_steamid', ['info' => 'Un problème a été détecté lors de l\'ajout de votre SteamID']);
@@ -67,7 +68,8 @@ class AccountController extends AbstractController
 
         return $this->render('account/steamid.html.twig',[
             'form' => $form->createView(),
-            'notification' => $notification
+            'notification' => $notification,
+            'actual_link' => $actual_link
         ]);
     }
 }
