@@ -56,7 +56,6 @@ services:
 
 volumes:
   db:
-    driver: local
   var:
   vendor:
   pgadmin:
