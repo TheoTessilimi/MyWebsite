@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
@@ -41,7 +43,7 @@ class AccountController extends AbstractController
      * @throws ServerExceptionInterface
      */
     #[Route('/account/steamid', name: 'app_account_steamid')]
-    public function steamid(Request $request, Steam $steam): Response
+    public function steamid(Request $request, Steam $steam, TokenStorageInterface $tokenStorage): Response
     {
         /**
          * @var User $user
@@ -60,6 +62,9 @@ class AccountController extends AbstractController
             elseif($steam->checkSteamId($CommunityID)) {
                 $user->setSteamID($CommunityID);
                 $user->setRoles(array('ROLE_USER_WITH_STEAMID'));
+                if ($user->getId() === $this->getUser()->getId()) {
+                    $tokenStorage->setToken(new UsernamePasswordToken($user, 'main', $user->getRoles()));
+                }
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
                 return $this->redirectToRoute('app_account_steamid', ['info' => 'Votre Steam ID a bien été ajouté']);
