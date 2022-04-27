@@ -8,6 +8,11 @@
         <form method="post">
             {% if error %}
                 <div class="alert alert-danger text-center display-4"><h5>{{ error.messageKey|trans(error.messageData, 'security') }}</strong></h5></div>
+                <hr>
+            {% endif %}
+            {% if success %}
+                <div class="alert alert-success text-center">{{ success }}</div>
+                <hr>
             {% endif %}
 
             {% if app.user %}

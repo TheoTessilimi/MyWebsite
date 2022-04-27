@@ -16,6 +16,7 @@ class LoginController extends AbstractController
     #[Route('/login', name: 'app_login')]
     public function index(AuthenticationUtils $authenticationUtils, Request $request, Steam $steam, EntityManagerInterface $entityManager): Response
     {
+        $success = $request->query->get('success', null);
         if ($this->getUser()) {
             return $this->redirectToRoute('app_home');
         }
@@ -26,7 +27,8 @@ class LoginController extends AbstractController
 
         return $this->render('login/index.html.twig', [
             'last_username' => $lastUsername,
-            'error'         => $error
+            'error'         => $error,
+            'success' => $success
         ]);
     }
 

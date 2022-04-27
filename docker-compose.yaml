@@ -12,6 +12,9 @@ services:
       - /var/www/var
 
   php:
+    env_file:
+      - .env
+      - .env.local
     build:
       context: .
       dockerfile: ./Docker/.

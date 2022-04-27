@@ -49,7 +49,7 @@ class RegisterController extends AbstractController
                 $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
-                return $this->redirectToRoute('app_login');
+                return $this->redirectToRoute('app_login', ['success' => 'Vous pouvez maintenant vous connecter à votre compte']);
             } else {
                 $error = 'L\'adresse mail '. $user->getEmail() . ' existe déjà !';
             }
