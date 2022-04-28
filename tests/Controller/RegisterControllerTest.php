@@ -58,7 +58,7 @@ class RegisterControllerTest extends WebTestCase
         $this->client->submit($form);
         $userBDD = $this->entityManager->getRepository(User::class)->findOneBy(['email' => 'email@email']);
         $crawler = $this->client->followRedirect();
-        $this->assertSame(1, $crawler->filter('html:contains("Merci de vous connecter :")')->count());
+        $this->assertSame(1, $crawler->filter('html:contains("Connexion :")')->count());
         $this->entityManager->getRepository(User::class)->remove($userBDD);
     }
 

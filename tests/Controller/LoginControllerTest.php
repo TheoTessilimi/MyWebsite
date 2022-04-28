@@ -18,7 +18,7 @@ class LoginControllerTest extends WebTestCase
         $this->client->request('GET', '/login');
 
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-        $this->assertSelectorTextContains('h1', 'Merci de vous connecter :');
+        $this->assertSelectorTextContains('h1', 'Connexion :');
     }
 
     public function testLoginPageFromHome(): void
@@ -28,6 +28,6 @@ class LoginControllerTest extends WebTestCase
         $this->client->click($link);
 
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
-        $this->assertSelectorTextContains('h1', 'Merci de vous connecter :');
+        $this->assertSelectorTextContains('h1', 'Connexion :');
     }
 }

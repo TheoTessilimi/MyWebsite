@@ -98,7 +98,8 @@ public function testGetterAndSetterIsTrue(){
     /**
      * @return void
      */
-    public function testIfEmailIsEmptyInEntity(){
+    public function testIfEmailIsEmptyInEntity(): void
+    {
         $user = $this->getEntity()->setEmail('');
         $this->assertHasErrors($user, 1);
     }
