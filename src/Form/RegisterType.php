@@ -18,15 +18,17 @@ class RegisterType extends AbstractType
     {
         $builder
             ->add('pseudo', TextType::class, [
-                'label' => 'Votre pseudo :',
+                'label' => false,
                 'attr' => [
-                    'placeholder' => 'Jdupt'
-                ]
-            ])
+                    'placeholder' => 'Pseudo',
+                    'class' => 'form-control',
+                    'type' => 'text'
+                ]])
             ->add('firstname', TextType::class, [
                 'label' => 'Votre prénom :',
                 'attr' => [
-                    'placeholder' => 'Jean'
+                    'placeholder' => 'Jean',
+                    'class' => 'form-control'
                 ]
             ])
             ->add('lastname', TextType::class, [
@@ -56,12 +58,17 @@ class RegisterType extends AbstractType
                 'second_options' => [
                     'label' => 'Mot de passe :',
                     'attr' => [
-                        'placeholder' => 'Merci de confirmez votre mot de passe.'
+                        'placeholder' => 'Merci de confirmez votre mot de passe.',
+                        'class' => 'form-control'
                     ]
                 ]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Envoyer'
+                'label' => 'Envoyer',
+                'attr'=> [
+                    'class' => 'btn btn-primary btn-block'
+                ]
+
             ])
         ;
     }

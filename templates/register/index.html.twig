@@ -1,15 +1,94 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Inscription{% endblock %}
-
+{% block customStyle %}
+    <link href="{{ asset('css/signForm.css') }}" rel="stylesheet">
+{% endblock %}
 {% block content %}
-    <div class="block-small">
-        <form method="post">
-            {% if error %}
-                <div class="alert alert-danger">{{ error }}</div>
-            {% endif %}
     <br>
-    <h2 class="text-center">Merci de vous inscrire pour continuer.</h2>
-    <hr>
-    {{ form(form) }}
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+
+    <div class="container">
+        <div class="card bg-light">
+            <article class="card-body mx-auto" style="max-width: 400px;">
+                {#
+                <h4 class="card-title mt-3 text-center">Create Account</h4>
+                <p class="text-center">Get started with your free account</p>
+                <p>
+                    <a href="" class="btn btn-block btn-twitter"> <i class="fab fa-twitter"></i>   Login via Twitter</a>
+                    <a href="" class="btn btn-block btn-facebook"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>
+                </p>
+                <p class="divider-text">
+                    <span class="bg-light">OR</span>
+                </p>}
+                #}
+                <h2 class="text-center">Merci de vous inscrire pour continuer.</h2>
+                <hr class="">
+                    <div>
+                        <div class="block-small">
+                                {{form_start(form)}}
+                                {% if error %}
+                                    <div class="alert alert-danger">{{ error }}
+                                    </div>
+                                {% endif %}
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-gamepad "></i> </span>
+                                    </div>
+                                   {{form_widget(form.pseudo)}}
+                                   {{form_errors(form.pseudo)}}
+                                </div> <!-- form-group// -->
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                    </div>
+                                    {{form_widget(form.firstname)}}
+                                    {{form_errors(form.firstname)}}
+                                </div> <!-- form-group// -->
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                                    </div>
+                                    {{form_widget(form.lastname)}}
+                                    {{form_errors(form.lastname)}}
+                                </div> <!-- form-group// -->
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                                    </div>
+                                    {{form_widget(form.email)}}
+                                    {{form_errors(form.email)}}
+                                </div> <!-- form-group// -->
+
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                    </div>
+                                    {{form_widget(form.password.first)}}
+                                    {{form_errors(form.password.first)}}
+                                </div> <!-- form-group// -->
+                                <div class="form-group input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                    </div>
+                                    {{form_widget(form.password.second)}}
+                                    {{form_errors(form.password.second)}}
+                                </div> <!-- form-group// -->
+                                <div class="form-group">
+                                    {{form_end(form)}}
+                                </div> <!-- form-group// -->
+                                <p class="text-center">Vous avez déjà un compte ? <a href="{{path('app_login')}}">Connexion</a> </p>
+                        </div>
+                    </div>
+            </article>
+        </div> <!-- card.// -->
+
+    </div>
+
 {% endblock %}

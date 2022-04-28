@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-    <div id="signForm" class="text-center">
+    <div class="text-center signForm">
         <form method="post" class="form-signin">
             {% if error %}
                 <div class="alert alert-danger text-center display-4"><h5>{{ error.messageKey|trans(error.messageData, 'security') }}</strong></h5></div>
