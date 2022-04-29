@@ -18,30 +18,28 @@ class RegisterType extends AbstractType
     {
         $builder
             ->add('pseudo', TextType::class, [
-                'label' => false,
+                'invalid_message' => 'Veuillez à bien remplir ce champ',
                 'attr' => [
                     'placeholder' => 'Pseudo',
                     'class' => 'form-control',
                     'type' => 'text'
                 ]])
             ->add('firstname', TextType::class, [
-                'label' => 'Votre prénom :',
+                'invalid_message' => 'Veuillez à bien remplir ce champ',
                 'attr' => [
-                    'placeholder' => 'Jean',
-                    'class' => 'form-control'
+                    'placeholder' => 'Firstname',
                 ]
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'Votre nom :',
+                'invalid_message' => 'Veuillez à bien remplir ce champ',
                 'attr' => [
-                    'placeholder' => 'Dupont'
+                    'placeholder' => 'Lastname'
                 ]
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Votre email :',
                 'invalid_message' => 'Veuillez à bien remplir ce champ',
                 'attr' => [
-                    'placeholder' => 'Jean.Dupont@gmail.com'
+                    'placeholder' => 'Your email'
                 ]
             ])
             ->add('password', RepeatedType::class, [
@@ -52,19 +50,19 @@ class RegisterType extends AbstractType
                 'first_options' => [
                     'label' => 'Mot de passe :',
                     'attr' => [
-                        'placeholder' => 'Merci de saisir votre mot de passe.'
+                        'placeholder' => 'Password'
                     ]
                 ],
                 'second_options' => [
                     'label' => 'Mot de passe :',
                     'attr' => [
-                        'placeholder' => 'Merci de confirmez votre mot de passe.',
+                        'placeholder' => 'Confirm your password',
                         'class' => 'form-control'
                     ]
                 ]
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Envoyer',
+                'label' => 'Submit',
                 'attr'=> [
                     'class' => 'btn btn-primary btn-block'
                 ]

@@ -2,8 +2,10 @@
 
 namespace App\Tests\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class LoginControllerTest extends WebTestCase
 {
@@ -29,5 +31,9 @@ class LoginControllerTest extends WebTestCase
 
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
         $this->assertSelectorTextContains('h1', 'Connexion :');
+    }
+    public function testSuccessfullLogin(){
+        $user = new User();
+
     }
 }
