@@ -1,5 +1,7 @@
 FROM php:8.1-fpm
 
+RUN mkdir -p /var/www/
+
 WORKDIR /var/www/
 
 COPY . .
@@ -28,8 +30,6 @@ RUN pecl install apcu && docker-php-ext-enable apcu
 
 RUN npm install --global yarn
 
-RUN git config --global user.email "you@example.com" \
-    &&  git config --global user.name "Your Name"
 
 RUN  chown -R  www-data  /var/www/
 
