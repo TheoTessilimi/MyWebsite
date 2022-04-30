@@ -36,5 +36,4 @@ yarn-error.log
 /.vscode/
 #.env.local
 .env.*
-.env
 /docker.env
