@@ -32,8 +32,23 @@ class LoginControllerTest extends WebTestCase
         $this->assertSame(200, $this->client->getResponse()->getStatusCode());
         $this->assertSelectorTextContains('h1', 'Connexion :');
     }
-    public function testSuccessfullLogin(){
-        $user = new User();
 
+    public function testSuccessfullyLogin(){
+        $crawler = $this->client->request('GET', '/login');
+        $form = $crawler->selectButton('Connexion')->form();
+        $form['_username'] = "test@user.com";
+        $form['_password'] = "password_user";
+        $this->client->submit($form);
+        $this->client->followRedirect();
+        $this->assertSelectorTextContains('h1', 'Bienvenue sur mon site !');
+    }
+    public function testFailureLogin(){
+        $crawler = $this->client->request('GET', '/login');
+        $form = $crawler->selectButton('Connexion')->form();
+        $form['_username'] = "failure@user.com";
+        $form['_password'] = "password_user";
+        $this->client->submit($form);
+        $this->client->followRedirect();
+        $this->assertSelectorTextContains('h5', 'Identifiant ou mot de passe incorrect');
     }
 }
