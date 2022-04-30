@@ -3,49 +3,58 @@
 
 {% block title %}Connexion{% endblock %}
 {% block customStyle %}
-<link href="{{ asset('css/signForm.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/RegisterAndSign.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 {% endblock %}
 
 {% block content %}
-    <div class="text-center signForm">
-        <form method="post" class="form-signin">
-            {% if error %}
-                <div class="alert alert-danger text-center display-4"><h5>{{ error.messageKey|trans(error.messageData, 'security') }}</strong></h5></div>
-                <hr>
-            {% endif %}
-            {% if success %}
-                <div class="alert alert-success text-center">{{ success }}</div>
-                <hr>
-            {% endif %}
+    <div class="container">
+        <div class="card bg-light">
+            <article class="card-body mx-auto" style="max-width: 400px;">
+                <h2 class="text-center">Connexion :</h2>
+                <hr class="">
+                <div>
+                    <div class="block-small">
 
-            {% if app.user %}
-                <div class="mb-3">
-                    You are logged in as {{ app.user.firstname }}, <a href="{{ path('app_logout') }}">Logout</a>
+                        {% if error %}
+                            <div class="alert alert-danger text-center display-4"><h5>{{ error.messageKey|trans(error.messageData, 'security') }}</strong></h5></div>
+                            <hr>
+                        {% endif %}
+                        {% if success %}
+                            <div class="alert alert-success text-center">{{ success }}</div>
+                            <hr>
+                        {% endif %}
+
+                        <form method="post">
+                            <!-- form-group// -->
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                                </div>
+                                <input type="email" id="register_email" value="{{ last_username }}" name="_username" required="required" placeholder="Votre email" class="form-control" />
+
+                            </div> <!-- form-group// -->
+
+                            <div class="form-group input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                </div>
+                                <input type="password" id="register_password_first" name="_password" required="required" placeholder="Mot de passe" class="form-control" />
+
+                            </div>
+
+                            <div class="form-group input-group">
+                                <label>
+                                    <input type="checkbox" name="_remember_me" checked> Se souvenir de moi
+                                </label>
+                            </div>
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                            <!-- form-group// -->
+                            <div class="form-group">
+                                <div class="mb-3"><button class="btn btn-primary btn-block btn" type="submit"><i class="fa fa-lock-open"></i> Connexion</button></div><input type="hidden" id="register__token" name="register[_token]" value="1d086410fddbc06839.UYxsrIkUFdtwuxO7e_Yv5k8wsVzDMPJyMpF6RbS7uGA.IcIexuxYb5lI8H3KTaFIjzx09jG7eqQKYtUrMPbQ9yQQ9j_EsGdAmR_scA" /></form>
+                    </div> <!-- form-group// -->
                 </div>
-            {% endif %}
-
-            <h1 class="h3 mb-3 font-weight-normal">Connexion :</h1>
-            <label class="sr-only" for="inputEmail">Votre Email :</label>
-            <input type="email" placeholder="Votre email" value="{{ last_username }}" name="_username" id="inputEmail" class="form-control text-center" autocomplete="email" required autofocus>
-            <label class="sr-only" for="inputPassword">Votre mot de passe :</label>
-            <input type="password" placeholder="Votre Mot de Passe" name="_password" id="inputPassword" class="form-control text-center" autocomplete="current-password" required>
-
-            <input type="hidden" name="_csrf_token"
-                   value="{{ csrf_token('authenticate') }}"
-            >
-
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" name="_remember_me" checked> Se souvenir de moi
-                </label>
-            </div>
-            <button class="btn btn-lg btn-info btn-block mt-3" type="submit">
-                Connexion
-            </button>
-            <hr>
-            <p  class="text-center" >Ou souhaitez vous <a href="{{ path('app_register') }}"> créer un compte</a></p><br>
-        </form>
+            </article>
+        </div>
     </div>
-
-
 {% endblock %}

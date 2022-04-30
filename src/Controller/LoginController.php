@@ -14,7 +14,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class LoginController extends AbstractController
 {
     #[Route('/login', name: 'app_login')]
-    public function index(AuthenticationUtils $authenticationUtils, Request $request, Steam $steam, EntityManagerInterface $entityManager): Response
+    public function index(AuthenticationUtils $authenticationUtils, Request $request, EntityManagerInterface $entityManager): Response
     {
         $success = $request->query->get('success', null);
         if ($this->getUser()) {
@@ -23,7 +23,6 @@ class LoginController extends AbstractController
 
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
-
 
         return $this->render('login/index.html.twig', [
             'last_username' => $lastUsername,

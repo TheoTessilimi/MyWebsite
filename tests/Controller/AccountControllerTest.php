@@ -38,7 +38,7 @@ class AccountControllerTest extends WebTestCase
         $this->client->request('GET', '/account');
         $this->assertSame(302, $this->client->getResponse()->getStatusCode());
         $this->client->followRedirect();
-        $this->assertSelectorTextContains('h1', 'Connexion :');
+        $this->assertSelectorTextContains('h2', 'Connexion :');
     }
 
 
