@@ -26,6 +26,7 @@ services:
       - /var/www/var
     networks:
       - app
+      - bdd
     environment:
       KEY_STEAM: $${KEY_STEAM}
 
@@ -39,6 +40,7 @@ services:
       POSTGRES_USER: postgres
     networks:
       - app
+      - bdd
     volumes:
       - db:/var/lib/postgressql/data
 
@@ -63,3 +65,6 @@ volumes:
   pgadmin:
 networks:
   app:
+  bdd:
+    external:
+      name: external-bdd
