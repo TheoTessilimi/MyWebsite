@@ -34,6 +34,17 @@ class UserFixtures extends Fixture
         $user->setPassword($passwordHashed);
         //envoie sur bdd
         $manager->persist($user);
+        for ($i=0; $i < 30; $i++){
+            $user = new User();
+            $user->setFirstname('firstname_user_'.$i)
+                ->setLastname('lastname_user_'.$i)
+                ->setPseudo('pseudo_user_'.$i)
+                ->setEmail('test@user.com_'.$i);
+            //hash password and set it to the user
+            $passwordHashed = $this->hasher->hashPassword($user, 'password_user_$i');
+            $user->setPassword($passwordHashed);
+            $manager->persist($user);
+        }
         $manager->flush();
     }
 }

@@ -12,8 +12,9 @@ services:
       - /var/www/var
 
   php:
-    env_file:
-      - ./docker.env
+    env_file: docker.env
+    environment:
+      - KEY_STEAM=$${KEY_STEAM}
     build:
       context: .
       dockerfile: ./Docker/Dockerfile
@@ -27,8 +28,6 @@ services:
     networks:
       - app
       - bdd
-    environment:
-      KEY_STEAM: $${KEY_STEAM}
 
   db:
     image: postgres:14
