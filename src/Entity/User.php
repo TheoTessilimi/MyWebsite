@@ -41,6 +41,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private $Pseudo;
 
+    #[ORM\Column(type: 'datetime')]
+    private $Inscription_Date;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -160,6 +163,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPseudo(string $Pseudo): self
     {
         $this->Pseudo = $Pseudo;
+
+        return $this;
+    }
+
+    public function getInscriptionDate(): ?\DateTimeInterface
+    {
+        return $this->Inscription_Date;
+    }
+
+    public function setInscriptionDate(\DateTimeInterface $Inscription_Date): self
+    {
+        $this->Inscription_Date = $Inscription_Date;
 
         return $this;
     }

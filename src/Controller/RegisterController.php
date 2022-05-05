@@ -44,9 +44,13 @@ class RegisterController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            /**
+             * @var User $user
+             */
             $user = $form->getData();
             if ($userEntity->verifyIfEmailIsUnique($user->getEmail())) {
                 $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
+                $user->setInscriptionDate(new \DateTime("now"));
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
                 return $this->redirectToRoute('app_login', ['success' => 'Vous pouvez maintenant vous connecter à votre compte']);

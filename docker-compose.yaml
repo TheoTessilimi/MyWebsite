@@ -65,5 +65,4 @@ volumes:
 networks:
   app:
   bdd:
-    external:
-      name: external-bdd
+    name: external-bdd
